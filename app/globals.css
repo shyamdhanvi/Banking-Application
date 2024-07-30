@@ -379,4 +379,17 @@
   .sidebar-label {
     @apply text-16 font-semibold text-black-2 max-xl:hidden;
   }
+  .kesar-light {
+    color: #F4C430; /* Saffron */
+  }
+  
+  /* Medium Kesar */
+  .kesar-medium {
+    color: #FBB917; /* Saffron */
+  }
+  
+  /* Dark Kesar */
+  .kesar-dark {
+    color: #FF7722; /* Indian Saffron */
+  }
 }
