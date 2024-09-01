@@ -18,12 +18,12 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+//import { Input } from "@/components/ui/input"
 import CustomInput from './CustomInput';
 import { authFormSchema } from '@/lib/utils';
 import { Loader2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { signIn, signUp } from '@/lib/actions/user.action';
+import { getLoggedInUser, signIn, signUp } from '@/lib/actions/user.action';
 
 const formSchema = z.object({
     email: z.string().email(),
@@ -34,6 +34,7 @@ const AuthForm = ({ type }: { type: string }) => {
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    
 
     const formSchema = authFormSchema(type);
     
@@ -49,18 +50,19 @@ const AuthForm = ({ type }: { type: string }) => {
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
         setIsLoading(true)
         try {
+
             if (type === 'sign-up') {
                 const newUser = await signUp(data);
-
                 setUser(newUser);
             }
-            if (type === 'sign-in') {
-                // const response = await signIn({
-                //     email: data.email,
-                //     password: data.password
-                // })
 
-                // if(response) router.push('/')                    
+            if (type === 'sign-in') {
+                const response = await signIn({
+                    email: data.email,
+                    password: data.password
+                })
+
+                if(response) router.push('/')                    
             }
         } catch (error) {
             console.log(error)
@@ -120,7 +122,7 @@ const AuthForm = ({ type }: { type: string }) => {
                                         <CustomInput control={form.control} name='postalCode' label="Postal Code" placeholder='Example: 573201' />
                                     </div>
                                     <div className="flex gap-4">
-                                        <CustomInput control={form.control} name='dob' label="Date of Birth" placeholder='Example: DD-MM-YYYY' />
+                                        <CustomInput control={form.control} name='dateOfBirth' label="Date of Birth" placeholder='Example: DD-MM-YYYY' />
                                         <CustomInput control={form.control} name='adhaar' label="Adhaar" placeholder='Example: 1234-5678-9000' />
                                     </div>
                                 </>
