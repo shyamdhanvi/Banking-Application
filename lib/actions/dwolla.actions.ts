@@ -108,7 +108,7 @@ export const addFundingSource = async ({
       _links: dwollaAuthLinks,
     };
     return await createFundingSource(fundingSourceOptions);
-  } catch (err) {
-    console.error("Transfer fund failed: ", err);
+  } catch (error) {
+    console.error("Transfer fund failed: ", error);
   }
 };
